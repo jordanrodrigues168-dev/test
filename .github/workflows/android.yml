@@ -21,18 +21,17 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      # This ensures the runner recognizes the Android SDK paths
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # Force AAPT2 to download from Maven instead of looking for a local system binary
-      - name: Fix AAPT2 and Manifest issues
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # We inject the fix for AAPT2 directly into the runner's gradle.properties
+      - name: Fix AAPT2 for CI
         run: |
           echo "android.aapt2FromMaven=true" >> gradle.properties
           echo "android.useUnifiedManifestPlatform=true" >> gradle.properties
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
@@ -41,5 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ZukuTools-Debug-APK
+          # Line 44 Fix: Ensuring this path is exactly where Gradle outputs it
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
 		  

@@ -53,6 +53,8 @@ dependencies {
     val shizukuVersion = "13.1.0"
     implementation("dev.rikka.shizuku:api:$shizukuVersion")
     implementation("dev.rikka.shizuku:provider:$shizukuVersion")
+	implementation("androidx.compose.material:material-icons-extended:1.6.0")
+	
 	
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
     implementation("androidx.core:core-ktx:1.13.1")
@@ -65,6 +67,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+	implementation("io.coil-kt:coil-compose:2.4.0") // Best for M3 Icon loading
+	
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
